@@ -1,3 +1,12 @@
+#!/bin/bash -e
+
+. ./__init__.sh $@
+
+# Checking the verbosity of the script
+if [ ${VERBOSE} == "yes" ]; then
+    set -x
+fi
+
 sh ./scripts/startnode1.sh &
 sleep 5
 

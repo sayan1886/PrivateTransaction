@@ -1,31 +1,27 @@
 #!/bin/bash -e
 
-VERBOSE="no"
+. ./__init__.sh $@
 
 # Checking the verbosity of the script
 if [ ${VERBOSE} == "yes" ]; then
     set -x
 fi
 
-PARITY_HOME="/etc/parity"
-PARITY_LOG="/var/log/parity"
-CWD=$(pwd)
+echo ${ROOT_PWD} | sudo -S mkdir -p ${PARITY_HOME}
+echo ${ROOT_PWD} | sudo -S mkdir -p ${PARITY_LOG}/{1,2,3,4}
 
-sudo mkdir -p $PARITY_HOME
-sudo mkdir -p $PARITY_LOG
+echo ${ROOT_PWD} | sudo -S mkdir -p /etc/parity/data/.local/share/io.parity.ethereum/
+echo ${ROOT_PWD} | sudo -S mkdir -p /etc/parity/data/.local/share/io.parity.ethereum/
 
-sudo mkdir -p /etc/parity/data/.local/share/io.parity.ethereum/
-sudo mkdir -p /etc/parity/data/.local/share/io.parity.ethereum/
+echo ${ROOT_PWD} | sudo -S cp ${CWD}/configs/*.* ${PARITY_HOME}
 
-sudo cp $CWD/configs/*.* $PARITY_HOME
-
-sudo chmod -R 777 $PARITY_HOME
-sudo chown -R `whoami` $PARITY_HOME
+echo ${ROOT_PWD} | sudo -S chmod -R 777 ${PARITY_HOME}
+echo ${ROOT_PWD} | sudo -S chown -R ${whoami} ${PARITY_HOME}
 
 sleep 2
 
-sh ./scripts/startparity.sh
+sh ${CWD}/scripts/startparity.sh
 
 sleep 2
 
-sh ./scripts/configureparity.sh
+sh ${CWD}/scripts/configureparity.sh

@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
-VERBOSE="yes"
+. ./__init__.sh $@
 
 # Checking the verbosity of the script
 if [ ${VERBOSE} == "yes" ]; then
     set -x
 fi
 
-sudo pkill -f parity
+echo ${ROOT_PWD} | sudo -S pkill -f parity

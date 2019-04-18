@@ -1,16 +1,13 @@
 #!/bin/bash -e
 
-VERBOSE="yes"
+. ./__init__.sh $@
 
 # Checking the verbosity of the script
 if [ ${VERBOSE} == "yes" ]; then
     set -x
 fi
 
-PARITY_HOME="/etc/parity/"
-PARITY_LOG="/var/log/parity/"
+echo ${ROOT_PWD} | sudo -S pkill -f parity
 
-sudo pkill -f parity
-
-sudo rm -rf $PARITY_HOME
-sudo rm -rf $PARITY_LOG
+echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_HOME}
+echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_LOG}
