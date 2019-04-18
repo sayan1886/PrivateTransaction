@@ -8,4 +8,4 @@ if [ ${VERBOSE} == "yes" ]; then
 fi
 
 # Start node3
-echo ${ROOT_PWD} | sudo -S parity --config ${PARITY_HOME}/config4.toml --rpccorsdomain "*" --jsonrpc-cors null
+echo ${ROOT_PWD} | sudo -S parity --config ${PARITY_HOME}/node4.toml --rpccorsdomain "*" --jsonrpc-cors null

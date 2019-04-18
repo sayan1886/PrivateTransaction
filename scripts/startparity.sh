@@ -16,5 +16,5 @@ sleep 5
 sh ./scripts/startnode3.sh &
 sleep 5
 
-sh ./scripts/startnode3.sh &
+sh ./scripts/startnode4.sh &
 sleep 5
