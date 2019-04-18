@@ -1,5 +1,4 @@
 [parity]
-
 mode = "active"
 mode_timeout = 300
 mode_alarm = 3600
@@ -64,7 +63,7 @@ apis = ["all"]
 
 [dapps]
 disable = false
-path = "/etc/parity/data/.local/share/io.parity.ethereum/3/dapps"
+#path = "/etc/parity/data/.local/share/io.parity.ethereum/3/dapps"
 
 [secretstore]
 disable = false
@@ -98,10 +97,10 @@ gas_floor_target = "0x1fffffffffffff"
 min_gas_price = 0
 gas_cap = "0"
 tx_queue_size = 8192
-tx_queue_gas = "off"
+#tx_queue_gas = "off"
 #tx_queue_strategy = "gas_factor"
-tx_queue_ban_count = 1
-tx_queue_ban_time = 180 #s
+#tx_queue_ban_count = 1
+#tx_queue_ban_time = 180 #s
 tx_gas_limit = "0x1fffffffffffff"
 tx_time_limit = 100 #ms
 extra_data = "Private Transaction Parity"
