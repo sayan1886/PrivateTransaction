@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-. ./__init__.sh $@
+. ./scripts/__init__.sh $@
 
 # Checking the verbosity of the script
 if [ ${VERBOSE} == "yes" ]; then
