@@ -20,19 +20,29 @@ SELF_SECRET_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFro
 SELF_SECRET_NODE4=$(echo ${SELF_SECRET_NODE4} | tr -d '"')
 SELF_SECRET_NODE4=${SELF_SECRET_NODE4:2}
 
+SS_NODES=$(while read LINE; do echo ${LINE:8} | sed -e "s/.*/\"&\"/" | tr '\n' ',\n' ; done < ${PARITY_HOME}/peers.list)
+
 if [ "$(uname)" == "Darwin" ]; then
 
     sed -i '' 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE1}'"/g'  ${PARITY_HOME}/node1.toml
+    sed -i '' 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node1.toml
     sed -i '' 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE2}'"/g'  ${PARITY_HOME}/node2.toml
+    sed -i '' 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node2.toml
     sed -i '' 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE3}'"/g'  ${PARITY_HOME}/node3.toml
+    sed -i '' 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node3.toml
     sed -i '' 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE4}'"/g'  ${PARITY_HOME}/node4.toml
+    sed -i '' 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node4.toml
     
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     
     sed -i 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE1}'"/g'  ${PARITY_HOME}/node1.toml
+    sed -i 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node1.toml
     sed -i 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE2}'"/g'  ${PARITY_HOME}/node2.toml
+    sed -i 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node2.toml
     sed -i 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE3}'"/g'  ${PARITY_HOME}/node3.toml
+    sed -i 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node3.toml
     sed -i 's/^#self_secret = \"\"/self_secret = "'${SELF_SECRET_NODE4}'"/g'  ${PARITY_HOME}/node4.toml
+    sed -i 's/^nodes = \[\]/nodes = ['${SS_NODES%?}']/g'  ${PARITY_HOME}/node4.toml
 
 fi
 

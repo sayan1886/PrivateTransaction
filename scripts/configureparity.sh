@@ -67,3 +67,7 @@ sleep 5
 
 sh ${CWD}/scripts/startparity.sh
 
+sleep 2
+
+sh ${CWD}/scripts/add_monitor.sh
+
