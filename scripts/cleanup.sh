@@ -13,3 +13,7 @@ echo ${ROOT_PWD} | sudo -S kill -9 $(ps aux | grep parity | awk '{print $2}')
 
 echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_HOME}
 echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_LOG}
+
+echo ${ROOT_PWD} | sudo -S kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
+pm2 stop all
+pm2 delete all
