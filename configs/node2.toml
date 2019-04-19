@@ -67,6 +67,10 @@ disable = false
 
 [secretstore]
 disable = false
+disable_http = false
+acl_contract = "none"     # Insecure, will be changed later on
+server_set_contract = "none"
+#self_secret = ""
 nodes = []
 http_interface = "0.0.0.0"
 http_port = 8084

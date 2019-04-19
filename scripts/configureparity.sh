@@ -21,40 +21,39 @@ if [ "$(uname)" == "Darwin" ]; then
 
     sed -i '' 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE1}']/g'  ${PARITY_HOME}/node1.toml
     sed -i '' 's/^#author = \"\"/author = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
-    sed -i '' 's/^#author = \"\"/unlock = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
+    sed -i '' 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
 
     sed -i '' 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE2}']/g'  ${PARITY_HOME}/node2.toml
     sed -i '' 's/^#author = \"\"/author = '${SIGNER_NODE2}'/g'  ${PARITY_HOME}/node2.toml
-    sed -i '' 's/^#author = \"\"/unlock = '${SIGNER_NODE2}'/g'  ${PARITY_HOME}/node2.toml
+    sed -i '' 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE2}'/g'  ${PARITY_HOME}/node2.toml
 
     sed -i '' 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE3}']/g'  ${PARITY_HOME}/node3.toml
     sed -i '' 's/^#author = \"\"/author = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
-    sed -i '' 's/^#author = \"\"/unlock = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
+    sed -i '' 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
 
     sed -i '' 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE4}']/g'  ${PARITY_HOME}/node4.toml
     sed -i '' 's/^#author = \"\"/author = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
-    sed -i '' 's/^#author = \"\"/unlock = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
+    sed -i '' 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     
     sed -i 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE1}']/g'  ${PARITY_HOME}/node1.toml
     sed -i 's/^#author = \"\"/author = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
-    sed -i 's/^#author = \"\"/unlock = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
+    sed -i 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE1}'/g'  ${PARITY_HOME}/node1.toml
 
     sed -i 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE2}']/g'  ${PARITY_HOME}/node2.toml
     sed -i 's/^#author = \"\"/author = '${SIGNER_NODE2}'/g'  ${PARITY_HOME}/node2.toml
-    sed -i 's/^#author = \"\"/unlock = '${SIGNER_NODE2}/'g'  ${PARITY_HOME}/node2.toml
+    sed -i 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE2}/'g'  ${PARITY_HOME}/node2.toml
 
     sed -i 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE3}']/g'  ${PARITY_HOME}/node3.toml
     sed -i 's/^#author = \"\"/author = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
-    sed -i 's/^#author = \"\"/unlock = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
+    sed -i 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE3}'/g'  ${PARITY_HOME}/node3.toml
 
     sed -i 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE4}']/g'  ${PARITY_HOME}/node4.toml
     sed -i 's/^#author = \"\"/author = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
-    sed -i 's/^#author = \"\"/unlock = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
+    sed -i 's/^#engine_signer = \"\"/engine_signer = '${SIGNER_NODE4}'/g'  ${PARITY_HOME}/node4.toml
     
 fi
-cat ${PARITY_HOME}/node1.toml
 
 sleep 2
 
