@@ -55,13 +55,21 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     
 fi
 
-sleep 2
+sleep 5
 
 sh ${CWD}/scripts/add_validator.sh
 
-sleep 2
+sleep 5
 
-sh ${CWD}/scripts/stopparity.sh 
+sh ${CWD}/scripts/add_monitor.sh
+
+sleep 5
+
+sh ${CWD}/scripts/add_secretstore.sh
+
+sleep 5
+
+sh ${CWD}/scripts/stopparity.sh
 
 sleep 5
 

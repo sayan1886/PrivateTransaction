@@ -35,12 +35,14 @@ VALIDATOR_ADDR=[${SIGNER_NODE1:2},${SIGNER_NODE2:2},${SIGNER_NODE3:2},${SIGNER_N
 
 mkdir -p ${SOLC_OUT}
 
-solc --bin --overwrite -o ${SOLC_OUT} ${VALIDATOR_CONTRACT}
+solc --bin --overwrite --gas -o ${SOLC_OUT} ${VALIDATOR_CONTRACT}
 
 VALIDATOR_CONTRACT_BIN=$(cat ${VALIDATOR_CONTRACT_BIN})
 
 
 VALIDATOR_CONTRACT_PARAMS=$(ethabi encode params -v  address ${RELAY_SET_ADDR} -v address ${OWNER_ADDR} -v address[] ${VALIDATOR_ADDR}  -l)
+
+# VALIDATOR_CONTRACT_PARAMS=$(ethabi encode params -v  address ${RELAY_SET_ADDR} -v address[] ${VALIDATOR_ADDR}  -l)
 
 
 VALIDATOR_CONTRACT_BIN=${VALIDATOR_CONTRACT_BIN}${VALIDATOR_CONTRACT_PARAMS}
@@ -57,5 +59,10 @@ mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
 OWNER_ADDRESS="0x${OWNER_ADDR}"
 VALIDATOR_CONTRACT_BIN="0x${VALIDATOR_CONTRACT_BIN}"
 
+GAS=$(curl -X POST localhost:8545 --data '{"method":"eth_estimateGas","params":[{"from": "'${OWNER_ADDRESS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json"  | jq '.result' | tr -d '"')   
+GAS=$(($((${GAS}))+50000))
+GAS=0x$(echo "obase=16; ${GAS}" | bc)
+# TRANSACTION_HASH=$(curl -X POST localhost:8545 --data '{"method":"eth_sendTransaction","params":[{"from": "'${OWNER_ADDRESS}'", "gas":"'${GAS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" | jq '.result' &)
+# CONTRACT_ADDRESS=$(curl localhost:8545 -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":['${TRANSACTION_HASH}'],"id":1}' | jq '.result.contractAddress' &)
 
-curl -X POST localhost:8545 --data '{"method":"eth_sendTransaction","params":[{"from": "'${OWNER_ADDRESS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json"        
+# echo "**************************${CONTRACT_ADDRESS}************************"

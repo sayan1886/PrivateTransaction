@@ -13,7 +13,7 @@ light = false
 
 [account]
 #unlock = [""]
-password=["/etc/parity/node.pwds"]
+password=["/etc/parity/node4.pwds"]
 keys_iterations = 10240
 
 [ui]
@@ -136,6 +136,6 @@ disable_periodic = false
 #jit = false
 
 [misc]
-logging = "own_tx,discovery,chain,client,network,poa,sync=trace"
+logging = "all"
 log_file = "/var/log/parity/4/parity.node.log"
 color = true
