@@ -8,4 +8,4 @@ if [ ${VERBOSE} == "yes" ]; then
 fi
 
 # Start node1
-echo ${ROOT_PWD} | sudo -S parity --config ${PARITY_HOME}/node1.toml --rpccorsdomain "*" 
+echo ${ROOT_PWD} | sudo -S parity --config ${PARITY_HOME}/node1.toml
