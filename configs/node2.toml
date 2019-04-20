@@ -144,6 +144,6 @@ disable_periodic = false
 #jit = false
 
 [misc]
-logging = "transaction_pool=trace,txqueue=trace,ethcore_private_tx=trace,own_tx=trace"
+logging = "transaction_pool=trace,txqueue=trace,ethcore_private_tx=trace,own_tx=trace,secretstore=trace,secretstore_net=trace"
 log_file = "/var/log/parity/2/parity.node.log"
 color = true

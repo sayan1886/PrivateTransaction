@@ -18,7 +18,7 @@
 // and allows its change only if all the Validators (from a static list, initialized in constructor)
 // have signed a new state (hashed together with a current nonce, for replay protection).
 
-pragma solidity ^0.4.18;
+pragma solidity ^0.5;
 
 
 contract PrivateContract {
@@ -33,9 +33,9 @@ contract PrivateContract {
 	);
 
 	constructor(
-		address[] initialValidators,
-		bytes initialCode,
-		bytes initialState
+		address[] memory initialValidators,
+		bytes memory initialCode,
+		bytes memory initialState
 	)
 		public
 	{
@@ -48,16 +48,16 @@ contract PrivateContract {
 	function getValidators()
 		public
 		view
-		returns (address[])
+		returns (address[] memory)
 	{
 		return validators;
 	}
 
 	function setState(
-		bytes newState,
-		uint8[] v,
-		bytes32[] r,
-		bytes32[] s
+		bytes memory newState,
+		uint8[] memory v,
+		bytes32[] memory r,
+		bytes32[] memory s
 	)
 		public
 	{
@@ -82,7 +82,7 @@ contract PrivateContract {
 	
 	function notifyChanges(
 		address changesOriginator,
-		bytes originalTransactionHash
+		bytes memory originalTransactionHash
 	)
 		public
 	{

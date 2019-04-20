@@ -1,19 +1,19 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5;
 
 contract SecretStorePermissions {
     mapping (bytes32 => address[]) keyOwners;
     mapping (uint => bytes32) keysIndex;
     uint keysCount;
     
-    function addKey(address[] users, bytes32 key) public {
+    function addKey(address[] memory users, bytes32 key) public {
         keyOwners[key] = users;
         keysIndex[keysCount] = key;
         keysCount = keysCount + 1;
     }
 
-    function checkPermissions(address user, bytes32 document) public constant returns (bool) {
+    function checkPermissions(address user, bytes32 document) public view returns (bool) {
         bool key_found = false;
-        address[] owners;
+        address[] memory owners;
         for(uint i = 0; i < keysCount; i++) {
             if (keysIndex[i] == document) {
                 key_found = true;
