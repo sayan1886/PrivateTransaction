@@ -9,6 +9,6 @@ fi
 
 echo ${ROOT_PWD} | sudo -S pkill -f parity
 
-# sleep 10
+sleep 5
 
-# echo ${ROOT_PWD} | sudo -S kill -9 $(ps aux | grep parity | awk '{print $2}')
+echo ${ROOT_PWD} | sudo -S kill -9 $(ps aux | grep parity | awk '{print $2}')

@@ -17,6 +17,9 @@ SIGNER_NODE2=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhra
 SIGNER_NODE3=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node3", "node3"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result')
 SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node4", "node4"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result')
 
+VALIDATOR_LIST=[${SIGNER_NODE1},${SIGNER_NODE2},${SIGNER_NODE3},${SIGNER_NODE4}]
+jq '.engine.authorityRound.params.validators.multi += {"0":{"list":'${VALIDATOR_LIST}'}}' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
+
 if [ "$(uname)" == "Darwin" ]; then
 
     sed -i '' 's/^#unlock = \[\"\"\]/unlock = ['${SIGNER_NODE1}']/g'  ${PARITY_HOME}/node1.toml
@@ -55,22 +58,17 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     
 fi
 
-sleep 5
+jq '.accounts += {'${SIGNER_NODE1}':{"balance":"10000000000000000000000"}}' ${TMP_CHAIN_1_NAME} > ${TMP_CHAIN_2_NAME}
+jq '.accounts += {'${SIGNER_NODE2}':{"balance":"10000000000000000000000"}}'  ${TMP_CHAIN_2_NAME} > ${TMP_CHAIN_1_NAME}
+jq '.accounts += {'${SIGNER_NODE3}':{"balance":"10000000000000000000000"}}'  ${TMP_CHAIN_1_NAME} > ${TMP_CHAIN_2_NAME}
+jq '.accounts += {'${SIGNER_NODE4}':{"balance":"10000000000000000000000"}}'  ${TMP_CHAIN_2_NAME} > ${TMP_CHAIN_1_NAME}
 
-sh ${CWD}/scripts/add_validator.sh
-
-sleep 5
-
-sh ${CWD}/scripts/add_monitor.sh
-
-sleep 5
-
-sh ${CWD}/scripts/add_secretstore.sh
-
-sleep 5
+mv ${TMP_CHAIN_1_NAME} ${MAIN_CHAIN_NAME}
 
 sh ${CWD}/scripts/stopparity.sh
 
-sleep 5
+sleep 10
 
 sh ${CWD}/scripts/startparity.sh
+
+sleep 5

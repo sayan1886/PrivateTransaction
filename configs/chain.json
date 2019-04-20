@@ -5,7 +5,9 @@
             "params": {
                 "stepDuration": "5",
                 "validators": {
-                    "safeContract": ""
+                    "multi": {
+                        "0": { "list": [] }
+                    }
                 },
                 "emptyStepsTransition": "0",
                 "maximumEmptySteps": "0"

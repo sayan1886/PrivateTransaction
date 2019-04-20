@@ -15,6 +15,11 @@ PARITY_LOG="/var/log/parity"
 CWD=$(pwd)
 VERBOSE="yes"
 
+MAIN_CHAIN_NAME="${PARITY_HOME}/chain.json"
+TMP_CHAIN_1_NAME="${TMP_DIR}/chain1.json"
+TMP_CHAIN_2_NAME="${TMP_DIR}/chain2.json"
+TMP_CHAIN_3_NAME="${TMP_DIR}/chain3.json"
+
 if [ "$(uname)" == "Darwin" ]; then
     IP=$(ipconfig getifaddr en0)
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
