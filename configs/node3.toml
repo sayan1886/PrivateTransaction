@@ -25,8 +25,8 @@ enabled = true
 passwords = "node3.pwds"
 
 [ui]
-force = true
-disable = false
+force = false
+disable = true
 port = 8183
 interface = "0.0.0.0"
 path = "/etc/parity/data/.local/share/io.parity.ethereum/3/signer"
@@ -57,7 +57,7 @@ apis = ["all"]
 hosts = ["all"]
 
 [websockets]
-disable = false
+disable = true
 port = 8550
 interface = "0.0.0.0"
 origins = ["all"]
@@ -65,12 +65,12 @@ apis = ["all"]
 hosts = ["all"]
 
 [ipc]
-disable = false
+disable = true
 path = "/etc/parity/data/.local/share/io.parity.ethereum/3/jsonrpc.ipc"
 apis = ["all"]
 
 [dapps]
-disable = false
+disable = true
 #path = "/etc/parity/data/.local/share/io.parity.ethereum/3/dapps"
 
 [secretstore]
@@ -144,6 +144,6 @@ disable_periodic = false
 #jit = false
 
 [misc]
-logging = "all"
+logging = "transaction_pool=trace,txqueue=trace,ethcore_private_tx=trace,own_tx=trace"
 log_file = "/var/log/parity/3/parity.node.log"
 color = true
