@@ -65,6 +65,14 @@ jq '.accounts += {'${SIGNER_NODE4}':{"balance":"10000000000000000000000"}}'  ${T
 
 mv ${TMP_CHAIN_1_NAME} ${MAIN_CHAIN_NAME}
 
+sh ${CWD}/scripts/add_monitor.sh
+
+sleep 10
+
+sh ${CWD}/scripts/add_secretstore.sh
+
+sleep 5
+
 sh ${CWD}/scripts/stopparity.sh
 
 sleep 10

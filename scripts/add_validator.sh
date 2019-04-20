@@ -55,12 +55,12 @@ echo "**************************${CONTRACT_ADDRESS}************************"
 jq '.engine.authorityRound.params.validators.multi += {"'${BLOCK}'":{"contract":"'${CONTRACT_SET_ADDR}'"}}' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
 # jq '.engine.authorityRound.params.validators.contract += "'${RELAY_SET_ADDR}'"' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
 jq '.accounts += {"'${RELAY_SET_ADDR}'":{"balance":"1","constructor":"'${VALIDATOR_CONTRACT_BIN}'"}}' ${TMP_CHAIN_1_NAME} > ${TMP_CHAIN_2_NAME}
-mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
+# mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
 
-sh ${CWD}/scripts/stopparity.sh
+# sh ${CWD}/scripts/stopparity.sh
 
-sleep 10
+# sleep 10
 
-sh ${CWD}/scripts/startparity.sh
+# sh ${CWD}/scripts/startparity.sh
 
-sleep 5
+# sleep 5
