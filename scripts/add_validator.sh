@@ -17,7 +17,7 @@ SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhra
 SIGNER_NODE4=$(echo ${SIGNER_NODE4} | tr -d '"')
 
 BLOCK=$(curl --data '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST localhost:8545 | jq '.result' | tr -d '"')
-BLOCK=$(($((${BLOCK}))+25))
+BLOCK=$(($((${BLOCK}))+10))
 
 RELAY_SET_ADDR="0x0000000000000000000000000000001000000000"
 CONTRACT_SET_ADDR=${RELAY_SET_ADDR}
@@ -55,12 +55,12 @@ echo "**************************${CONTRACT_ADDRESS}************************"
 jq '.engine.authorityRound.params.validators.multi += {"'${BLOCK}'":{"contract":"'${CONTRACT_SET_ADDR}'"}}' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
 # jq '.engine.authorityRound.params.validators.contract += "'${RELAY_SET_ADDR}'"' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
 jq '.accounts += {"'${RELAY_SET_ADDR}'":{"balance":"1","constructor":"'${VALIDATOR_CONTRACT_BIN}'"}}' ${TMP_CHAIN_1_NAME} > ${TMP_CHAIN_2_NAME}
-# mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
+mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
 
-# sh ${CWD}/scripts/stopparity.sh
+sh ${CWD}/scripts/stopparity.sh
 
-# sleep 10
+sleep 10
 
-# sh ${CWD}/scripts/startparity.sh
+sh ${CWD}/scripts/startparity.sh
 
-# sleep 5
+sleep 5
