@@ -21,7 +21,7 @@ sstore_url = "http://127.0.0.1:8010"
 enabled = true
 #account = ""
 #signer = ""
-#validators= []
+#validators = []
 passwords = "node1.pwds"
 
 [ui]

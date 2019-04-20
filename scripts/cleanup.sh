@@ -14,6 +14,6 @@ echo ${ROOT_PWD} | sudo -S killall parity
 echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_HOME}
 echo ${ROOT_PWD} | sudo -S rm -rf ${PARITY_LOG}
 
-echo ${ROOT_PWD} | sudo -S kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
+echo ${ROOT_PWD} | sudo -S killall node
 pm2 stop all
 pm2 delete all
