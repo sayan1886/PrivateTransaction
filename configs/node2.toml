@@ -16,6 +16,14 @@ light = false
 password=["/etc/parity/node2.pwds"]
 keys_iterations = 10240
 
+[private_tx]
+sstore_url = "http://127.0.0.1:8012"
+enabled = true
+#account = ""
+#signer = ""
+#validators= []
+passwords = "node2.pwds"
+
 [ui]
 force = true
 disable = false
@@ -73,9 +81,9 @@ server_set_contract = "none"
 #self_secret = ""
 nodes = []
 http_interface = "0.0.0.0"
-http_port = 8084
+http_port = 8012
 interface = "0.0.0.0"
-port = 8085
+port = 8013
 path = "/etc/parity/data/.local/share/io.parity.ethereum/2/secretstore"
 
 [ipfs]

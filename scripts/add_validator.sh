@@ -7,16 +7,16 @@ if [ ${VERBOSE} == "yes" ]; then
     set -x
 fi
 
-SIGNER_NODE1=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node1", "node1"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8545 | jq '.result')
+SIGNER_NODE1=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE1_PWD}'", "'${NODE1_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8545 | jq '.result')
 SIGNER_NODE1=$(echo ${SIGNER_NODE1} | tr -d '"')
-SIGNER_NODE2=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node2", "node2"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8547 | jq '.result')
+SIGNER_NODE2=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE2_PWD}'", "'${NODE2_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8547 | jq '.result')
 SIGNER_NODE2=$(echo ${SIGNER_NODE2} | tr -d '"')
-SIGNER_NODE3=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node3", "node3"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result')
+SIGNER_NODE3=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE3_PWD}'", "'${NODE3_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result')
 SIGNER_NODE3=$(echo ${SIGNER_NODE3} | tr -d '"')
-SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node4", "node4"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result')
+SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE4_PWD}'", "'${NODE4_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result')
 SIGNER_NODE4=$(echo ${SIGNER_NODE4} | tr -d '"')
 
-BLOCK=$(curl --data '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST localhost:8545 | jq '.result' | tr -d '"')
+BLOCK=$(curl --data '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST ${IP}:8545 | jq '.result' | tr -d '"')
 BLOCK=$(($((${BLOCK}))+10))
 
 RELAY_SET_ADDR="0x0000000000000000000000000000001000000000"
@@ -44,11 +44,11 @@ VALIDATOR_CONTRACT_BIN=${VALIDATOR_CONTRACT_BIN}${VALIDATOR_CONTRACT_PARAMS}
 OWNER_ADDRESS="0x${OWNER_ADDR}"
 VALIDATOR_CONTRACT_BIN="0x${VALIDATOR_CONTRACT_BIN}"
 
-GAS=$(curl -X POST localhost:8545 --data '{"method":"eth_estimateGas","params":[{"from": "'${OWNER_ADDRESS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json"  | jq '.result' | tr -d '"')   
+GAS=$(curl -X POST ${IP}:8545 --data '{"method":"eth_estimateGas","params":[{"from": "'${OWNER_ADDRESS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json"  | jq '.result' | tr -d '"')   
 GAS=$(($((${GAS}))+50000))
 GAS=0x$(echo "obase=16; ${GAS}" | bc)
-TRANSACTION_HASH=$(curl -X POST localhost:8545 --data '{"method":"eth_sendTransaction","params":[{"from": "'${OWNER_ADDRESS}'", "gas":"'${GAS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" | jq '.result')
-CONTRACT_ADDRESS=$(curl localhost:8545 -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":['${TRANSACTION_HASH}'],"id":1}' -H "Content-Type: application/json" | jq '.result.contractAddress')
+TRANSACTION_HASH=$(curl -X POST ${IP}:8545 --data '{"method":"eth_sendTransaction","params":[{"from": "'${OWNER_ADDRESS}'", "gas":"'${GAS}'", "data":"'${VALIDATOR_CONTRACT_BIN}'"}],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" | jq '.result')
+CONTRACT_ADDRESS=$(curl ${IP}:8545 -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionReceipt","params":['${TRANSACTION_HASH}'],"id":1}' -H "Content-Type: application/json" | jq '.result.contractAddress')
 
 echo "**************************${CONTRACT_ADDRESS}************************"
 

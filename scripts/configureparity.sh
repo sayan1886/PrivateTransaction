@@ -12,10 +12,10 @@ echo ${ROOT_PWD} | sudo -S curl --data '{"method":"parity_enode","params":[],"id
 echo ${ROOT_PWD} | sudo -S curl --data '{"method":"parity_enode","params":[],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result' | tr -d '"' >> ${PARITY_HOME}/peers.list 
 echo ${ROOT_PWD} | sudo -S curl --data '{"method":"parity_enode","params":[],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result' | tr -d '"' >> ${PARITY_HOME}/peers.list 
 
-SIGNER_NODE1=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node1", "node1"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8545 | jq '.result')
-SIGNER_NODE2=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node2", "node2"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8547 | jq '.result')
-SIGNER_NODE3=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node3", "node3"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result')
-SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["node4", "node4"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result')
+SIGNER_NODE1=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE1_PWD}'", "'${NODE1_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8545 | jq '.result')
+SIGNER_NODE2=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE2_PWD}'", "'${NODE2_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8547 | jq '.result')
+SIGNER_NODE3=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE3_PWD}'", "'${NODE3_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8549 | jq '.result')
+SIGNER_NODE4=$(curl --data '{"jsonrpc":"2.0","method":"parity_newAccountFromPhrase","params":["'${NODE4_PWD}'", "'${NODE4_PWD}'"],"id":0}' -H "Content-Type: application/json" -X POST ${IP}:8551 | jq '.result')
 
 VALIDATOR_LIST=[${SIGNER_NODE1},${SIGNER_NODE2},${SIGNER_NODE3},${SIGNER_NODE4}]
 jq '.engine.authorityRound.params.validators.multi += {"0":{"list":'${VALIDATOR_LIST}'}}' $MAIN_CHAIN_NAME > $TMP_CHAIN_1_NAME
@@ -69,7 +69,7 @@ sh ${CWD}/scripts/add_monitor.sh
 
 sleep 10
 
-sh ${CWD}/scripts/add_secretstore.sh
+sh ${CWD}/scripts/enable_private_tx.sh
 
 sleep 5
 

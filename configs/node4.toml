@@ -16,6 +16,14 @@ light = false
 password=["/etc/parity/node4.pwds"]
 keys_iterations = 10240
 
+[private_tx]
+sstore_url = "http://127.0.0.1:8016"
+enabled = true
+#account = ""
+#signer = ""
+#validators= []
+passwords = "node4.pwds"
+
 [ui]
 force = true
 disable = false
@@ -73,9 +81,9 @@ server_set_contract = "none"
 #self_secret = ""
 nodes = []
 http_interface = "0.0.0.0"
-http_port = 8088
+http_port = 8016
 interface = "0.0.0.0"
-port = 8089
+port = 8017
 path = "/etc/parity/data/.local/share/io.parity.ethereum/3/secretstore"
 
 [ipfs]

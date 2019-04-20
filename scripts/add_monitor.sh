@@ -38,7 +38,7 @@ echo ${ROOT_PWD} | sudo -S npm install -g pm2
 for i in $(seq 1 $NODES); do
     # Monitor Environment
     NODE_ENV="Development" #Development/Acceptence/Production
-    RPC_HOST="localhost"
+    RPC_HOST=${IP}
     RPC_PORT="85"$((2*i+43))
     LISTENING_PORT="3030"$((i+2))
     INSTANCE_NAME=${NODE_NAME}-${i}
