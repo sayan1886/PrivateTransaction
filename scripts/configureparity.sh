@@ -67,7 +67,7 @@ mv ${TMP_CHAIN_1_NAME} ${MAIN_CHAIN_NAME}
 
 sh ${CWD}/scripts/add_monitor.sh
 
-sleep 10
+sleep 5
 
 sh ${CWD}/scripts/enable_private_tx.sh
 
@@ -75,7 +75,7 @@ sleep 5
 
 sh ${CWD}/scripts/stopparity.sh
 
-sleep 10
+sleep 5
 
 sh ${CWD}/scripts/startparity.sh
 

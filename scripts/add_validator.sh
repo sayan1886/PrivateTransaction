@@ -59,7 +59,7 @@ mv ${TMP_CHAIN_2_NAME} ${MAIN_CHAIN_NAME}
 
 sh ${CWD}/scripts/stopparity.sh
 
-sleep 10
+sleep 5
 
 sh ${CWD}/scripts/startparity.sh
 
